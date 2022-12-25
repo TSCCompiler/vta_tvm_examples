@@ -26,7 +26,7 @@
 
 struct VerilatedContextHandle{
     VerilatedVcdC* tfp = nullptr;
-    Top         *  top = nullptr;
+    TOP         *  top = nullptr;
 };
 
 vluint64_t main_time = 0;
@@ -39,7 +39,7 @@ namespace contrib {
 
 extern "C" VerilatorHandle VerilatorAlloc() {
     VerilatedContextHandle* context = new VerilatedContextHandle;
-  Top* top = new Top;
+  TOP* top = new TOP;
   context->top = top;
 //  VerilatedVcdFile* nfile = new VerilatedVcdFile();
   context->tfp = new VerilatedVcdC();
@@ -47,12 +47,12 @@ extern "C" VerilatorHandle VerilatorAlloc() {
     top->trace(context->tfp, 0);
   context->tfp->open("./wave.vcd");
 
-  std::cout << "set wave traced\n";
+//  std::cout << "set wave traced\n";
   return static_cast<VerilatorHandle>(context);
 }
 
 extern "C" void VerilatorDealloc(VerilatorHandle handle) {
-    std::cout << "dealloc context\n";
+//    std::cout << "dealloc context\n";
     auto* context = static_cast<VerilatedContextHandle*>(handle);
     delete context->top;
     context->tfp->close();
@@ -61,10 +61,10 @@ extern "C" void VerilatorDealloc(VerilatorHandle handle) {
 }
 
 extern "C" int VerilatorRead(VerilatorHandle handle, int id, int addr) {
-    std::cout << "begin to read\n";
+//    std::cout << "begin to read\n";
     auto* context = static_cast<VerilatedContextHandle*>(handle);
 
-  Top* top = context->top;// static_cast<Top*>(handle);
+  TOP* top = context->top;// static_cast<Top*>(handle);
   top->opcode = 2;
   top->id = id;
   top->addr = addr;
@@ -73,9 +73,9 @@ extern "C" int VerilatorRead(VerilatorHandle handle, int id, int addr) {
 }
 
 extern "C" void VerilatorWrite(VerilatorHandle handle, int id, int addr, int value) {
-    std::cout << "begin to write\n";
+//    std::cout << "begin to write\n";
     auto* context = static_cast<VerilatedContextHandle*>(handle);
-  Top* top = context->top;
+    TOP* top = context->top;
   top->opcode = 1;
   top->id = id;
   top->addr = addr;
@@ -85,8 +85,8 @@ extern "C" void VerilatorWrite(VerilatorHandle handle, int id, int addr, int val
 
 extern "C" void VerilatorReset(VerilatorHandle handle, int n) {
     auto* context = static_cast<VerilatedContextHandle*>(handle);
-    std::cout << "enter verilator reset " << n;
-  Top* top = context->top;
+//    std::cout << "enter verilator reset " << n;
+    TOP* top = context->top;
   top->opcode = 0;
   top->clock = 0;
   top->reset = 1;
@@ -111,7 +111,7 @@ extern "C" void VerilatorReset(VerilatorHandle handle, int n) {
 
 extern "C" void VerilatorRun(VerilatorHandle handle, int n) {
     auto* context = static_cast<VerilatedContextHandle*>(handle);
-  Top* top = context->top;
+    TOP* top = context->top;
   top->opcode = 0;
   top->clock = 0;
   main_time = 0;
