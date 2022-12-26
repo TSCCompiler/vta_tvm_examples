@@ -19,15 +19,15 @@
 find_program(PYTHON NAMES python python3 python3.6)
 
 # Throw error if VTA_HW_PATH is not set
-if (NOT VTA_HW_PATH)
-  if(NOT DEFINED ENV{VTA_HW_PATH})
-    message(STATUS "setting vta to local")
-    set(VTA_HW_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-  else()
-    set(VTA_HW_PATH $ENV{VTA_HW_PATH})
-  endif()
-endif ()
-message(STATUS "VTA HW PATH ${VTA_HW_PATH}")
+#if (NOT VTA_HW_PATH)
+#  if(NOT DEFINED ENV{VTA_HW_PATH})
+#    message(STATUS "setting vta to local")
+#    set(VTA_HW_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+#  else()
+#    set(VTA_HW_PATH $ENV{VTA_HW_PATH})
+#  endif()
+#endif ()
+#message(STATUS "VTA HW PATH ${VTA_HW_PATH}")
 
 
 #add_definitions("-DTVM_EXPORTS=")
